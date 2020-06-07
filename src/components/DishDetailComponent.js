@@ -38,7 +38,7 @@ render() {
                 <li>
                  <p>{item.comment}</p>
                  <p>{item.author}</p>
-                 <p>{item.date}</p>
+                 <p>{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(item.date)))}</p>
                 </li>
                 </ul>
                 </div>
