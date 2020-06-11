@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle } from 'reactstrap';
+import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle , Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
 
 
@@ -7,6 +8,16 @@ const DistD = (props) => {
   if (props.select != null) {
     return(
         <div className="container">
+        <div className="row">
+            <Breadcrumb>
+                <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                <BreadcrumbItem active>{props.select.name}</BreadcrumbItem>
+            </Breadcrumb>
+        <div className="col-12">
+            <h3>{props.select.name}</h3>
+            <hr />
+        </div>
+        </div>
           <div className="row">
             <div className="col-12 col-md-5">
             <Card>
@@ -20,7 +31,7 @@ const DistD = (props) => {
             <div  className="col-12 col-md">
               <h2>Comments</h2>
               {
-                props.select.comments.map((item)=>
+                props.comments.map((item)=>
                 <div>
                 <ul>
                 <li>
