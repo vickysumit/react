@@ -1,46 +1,84 @@
-import React from 'react';
-import { Card,CardImg,CardImgOverlay,CardText,CardBody,CardTitle } from 'reactstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardText, CardBody,
+    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link } from 'react-router-dom';
+class DistD extends Component{
+  renderComments(comments) {
+      if (comments == null) {
+          return (<div></div>)
+      }
+      const cmnts = comments.map(comment => {
+          return (
+              <li key={comment.id}>
+                  <p>{comment.comment}</p>
+                  <p>-- {comment.author},
+                  &nbsp;
+                  {new Intl.DateTimeFormat('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: '2-digit'
+                      }).format(new Date(comment.date))}
+                  </p>
+              </li>
+          )
+      })
+      return (
+          <div className='col-12 col-md-5 m-1'>
+              <h4> Comments </h4>
+              <ul className='list-unstyled'>
+                  {cmnts}
+              </ul>
 
-
-
-const DistD = (props) => {
-  if (props.select != null) {
-    return(
-        <div className="container">
-          <div className="row">
-            <div className="col-12 col-md-5">
-            <Card>
-            <CardImg width="50%" src={props.select.image} alt={props.select.name} />
-            <CardBody>
-             <CardTitle>{props.select.name}</CardTitle>
-             <CardText>{props.select.description}</CardText>
-            </CardBody>
-            </Card>
-            </div>
-            <div  className="col-12 col-md">
-              <h2>Comments</h2>
-              {
-                props.select.comments.map((item)=>
-                <div>
-                <ul>
-                <li>
-                 <p>{item.comment}</p>
-                 <p>{item.author}</p>
-                 <p>{item.date}</p>
-                </li>
-                </ul>
-                </div>
-              )
-              }
-            </div>
           </div>
-   </div>
-    );
+      )
+  }
+
+  renderDish(dish) {
+      if (dish != null) {
+          return (
+              <div className='col-12 col-md-5 m-1'>
+                  <Card>
+                      <CardImg width="100%" src={dish.image} alt={dish.name} />
+                      <CardBody>
+                          <CardTitle>{dish.name}</CardTitle>
+                          <CardText>{dish.description}</CardText>
+                      </CardBody>
+                  </Card>
+              </div>
+          )
+      }
+      else {
+          return (<div></div>)
+      }
+  }
+
+  render() {
+    const dish = this.props.select
+    if (dish == null) {
+        return (<div></div>)
     }
-  else {
+    const dishItem = this.renderDish(dish)
+    const commentItem = this.renderComments(this.props.comments)
     return (
-      <div></div>
-    );
+        <div className="container">
+        <div className="row">
+              <Breadcrumb>
+
+                  <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                  <BreadcrumbItem active>{this.props.select.name}</BreadcrumbItem>
+              </Breadcrumb>
+              <div className="col-12">
+                  <h3>{this.props.select.name}</h3>
+                  <hr />
+              </div>
+          </div>
+          <div className="row">
+              {dishItem}
+              {commentItem}
+            </div>
+        </div>
+    )
+
   }
 }
 export default DistD;

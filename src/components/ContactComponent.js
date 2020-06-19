@@ -76,7 +76,7 @@ handleSubmit(values) {
                                           model=".firstname"
                                           show="touched"
                                           messages={{
-                                            required:'Required',
+                                            required:'Required ',
                                             minLength:'Must be greater than 2',
                                             maxLength:'Must be 15 character or less'
                                           }}
