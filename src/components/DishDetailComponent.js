@@ -10,7 +10,7 @@ const minLength = (len) => (val) => val && (val.length >= len);
 
 
 class DistD extends Component{
-  renderComments(comments) {
+  renderComments(comments,addComment,dishId) {
       if (comments == null) {
           return (<div></div>)
       }
@@ -35,7 +35,7 @@ class DistD extends Component{
               <ul className='list-unstyled'>
                   {cmnts}
               </ul>
-              <CommentForm />
+              <CommentForm dishId={dishId} addComment={addComment} />
           </div>
       )
   }
@@ -65,7 +65,7 @@ class DistD extends Component{
         return (<div></div>)
     }
     const dishItem = this.renderDish(dish)
-    const commentItem = this.renderComments(this.props.comments)
+    const commentItem = this.renderComments(this.props.comments,this.props.addComment,this.props.select.id)
     return (
         <div className="container">
         <div className="row">
@@ -106,8 +106,8 @@ toggleModal(){
 }
 
 handleSubmit(values) {
-    console.log('Current State is: ' + JSON.stringify(values));
-    alert('Current State is: ' + JSON.stringify(values));
+    this.toggleModal();
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
 }
 
 render() {
@@ -133,7 +133,7 @@ return(
           </Control.select>
         </Col>
       </Row>
-      <Row className="form-gropu">
+      <Row className="form-group">
       <Label htmlFor="name" md={12}>Your Name</Label>
       <Col md={12}>
           <Control.text model=".name" id="name" name="name"
