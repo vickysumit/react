@@ -111,7 +111,7 @@ class Header extends Component {
 
               </Form>
             </ModalBody>
-          </Modal>
+          </Modal> 
         </React.Fragment>
       );
     }
