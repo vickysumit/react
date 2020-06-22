@@ -114,7 +114,7 @@ render() {
 return(
   <React.Fragment>
   <Button type="submit" className="outline" onClick={this.toggleModal}>
-       Submit Comment
+      <span className="fa fa-edit fa-lg"></span> Submit Comment
   </Button>
 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
@@ -134,9 +134,9 @@ return(
         </Col>
       </Row>
       <Row className="form-group">
-      <Label htmlFor="name" md={12}>Your Name</Label>
+      <Label htmlFor="author" md={12}>Your Name</Label>
       <Col md={12}>
-          <Control.text model=".name" id="name" name="name"
+          <Control.text model=".author" id="author" name="author"
               placeholder="Your Name"
               className="form-control"
               validators={{

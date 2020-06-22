@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const maapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   addComment: (dishId,rating,author,comment) => dispatch(addComment(dishId,rating,author,comment))
 });
 class Main extends Component {
@@ -72,4 +72,4 @@ class Main extends Component {
 
 }
 
-export default withRouter(connect(mapStateToProps,maapDispatchToProps)(Main));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Main));
