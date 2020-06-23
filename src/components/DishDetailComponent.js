@@ -3,7 +3,7 @@ import { Card, CardImg, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem,Row,Col,Label, Button,ModalHeader, ModalBody, Modal} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import {Control,LocalForm,Errors} from 'react-redux-form';
-
+import {Loading} from './LoadingComponent';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -60,13 +60,30 @@ class DistD extends Component{
   }
 
   render() {
-    const dish = this.props.select
-    if (dish == null) {
-        return (<div></div>)
+    if(this.props.isLoading){
+      return(
+        <div className="container">
+          <div className="row">
+              <Loading />
+          </div>
+        </div>
+      );
     }
-    const dishItem = this.renderDish(dish)
-    const commentItem = this.renderComments(this.props.comments,this.props.addComment,this.props.select.id)
-    return (
+    else if (this.props.errmess){
+      return(
+        <div className="container">
+          <div className="row">
+              <h4>{this.props.errmess}</h4>
+          </div>
+        </div>
+      );
+    }
+
+  else if (this.props.select != null) {
+      const dish = this.props.select;
+      const dishItem = this.renderDish(dish);
+      const commentItem = this.renderComments(this.props.comments,this.props.addComment,this.props.select.id);
+      return(
         <div className="container">
         <div className="row">
               <Breadcrumb>
@@ -84,6 +101,11 @@ class DistD extends Component{
               {commentItem}
             </div>
         </div>
+      )
+    }
+  else
+    return (
+        <div></div>
     )
 
   }
